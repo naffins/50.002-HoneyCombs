@@ -1,0 +1,17 @@
+module instruction_memory_unit #(
+
+    // Instruction memory unit. Size 16, depth 2^8 = 128
+    DEPTH_LOG = 8,
+    INSTR = 128x{16b0} // Instructions - remember to add from bottom
+
+  ) (
+    input ia[DEPTH_LOG], // instruction address
+    output id[16] // instruction data
+  ) {
+
+  always {
+  
+    id = INSTR[ia]; // this is legit cheat but meh
+  
+  }
+}

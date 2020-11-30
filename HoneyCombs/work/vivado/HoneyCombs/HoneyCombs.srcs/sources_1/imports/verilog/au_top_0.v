@@ -11,7 +11,7 @@ module au_top_0 (
     input usb_rx,
     output reg usb_tx,
     output reg [23:0] io_led,
-    input [7:0] io_dip,
+    input [23:0] io_dip,
     input [5:0] write_addr,
     input [15:0] write_data,
     input werf
@@ -21,14 +21,21 @@ module au_top_0 (
   
   reg rst;
   
-  wire [16-1:0] M_data_mem_read_data;
-  data_memory_1 data_mem (
-    .waddr(write_addr),
-    .write_data(write_data),
-    .write_en(werf),
-    .raddr(io_dip[0+5-:6]),
-    .wclk(clk),
-    .read_data(M_data_mem_read_data)
+  wire [16-1:0] M_alu_mod_out;
+  wire [1-1:0] M_alu_mod_z;
+  wire [1-1:0] M_alu_mod_v;
+  wire [1-1:0] M_alu_mod_n;
+  reg [6-1:0] M_alu_mod_alufn;
+  reg [16-1:0] M_alu_mod_a;
+  reg [16-1:0] M_alu_mod_b;
+  alu_1 alu_mod (
+    .alufn(M_alu_mod_alufn),
+    .a(M_alu_mod_a),
+    .b(M_alu_mod_b),
+    .out(M_alu_mod_out),
+    .z(M_alu_mod_z),
+    .v(M_alu_mod_v),
+    .n(M_alu_mod_n)
   );
   
   wire [1-1:0] M_reset_cond_out;
@@ -44,9 +51,15 @@ module au_top_0 (
     rst = M_reset_cond_out;
     usb_tx = usb_rx;
     led = 8'h00;
-    io_led[0+6+1-:2] = 2'h0;
-    io_led[0+0+5-:6] = io_dip[0+5-:6];
-    io_led[16+7-:8] = M_data_mem_read_data[8+7-:8];
-    io_led[8+7-:8] = M_data_mem_read_data[0+7-:8];
+    M_alu_mod_alufn = write_addr;
+    M_alu_mod_a = write_data;
+    M_alu_mod_b[8+7-:8] = io_dip[16+7-:8];
+    M_alu_mod_b[0+7-:8] = io_dip[8+7-:8];
+    io_led[16+7-:8] = M_alu_mod_out[8+7-:8];
+    io_led[8+7-:8] = M_alu_mod_out[0+7-:8];
+    io_led[0+7+0-:1] = M_alu_mod_z;
+    io_led[0+6+0-:1] = M_alu_mod_v;
+    io_led[0+5+0-:1] = M_alu_mod_n;
+    io_led[0+0+4-:5] = 5'h00;
   end
 endmodule

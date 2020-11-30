@@ -1,0 +1,69 @@
+module prealpha (
+
+    // Main Prealpha datapath. Outputs go to au_top and can be used for debugging
+    
+    input clk,  // clock
+    input rst,  // reset
+    output out[16]
+  ) {
+  
+  pc pc(.clk(clk),.rst(rst));
+  control_unit ctl(.rst(rst));
+  instruction_memory_unit instr_mem_unit;
+  regfile regfile(.clk(clk));
+  data_memory data_memory(.clk(clk));
+  alu alu;
+  
+  mux2 bsel_mux[16];
+  mux2 wdsel_mux[16];
+
+  always {
+  
+    // Assign pc signals
+    pc.pcsel = ctl.pcsel;
+    pc.c = instr_mem_unit.id[8:0];
+    
+    // Assign ctl signals
+    ctl.opcode = instr_mem_unit.id[15:12];
+    ctl.z = regfile.z;
+    
+    // Assign instruction memory unit signals
+    instr_mem_unit.ia = pc.ia[6:0];
+    
+    // Assign regfile signals
+    regfile.werf = ctl.werf;
+    regfile.ra2sel = ctl.ra2sel;
+    regfile.ra = instr_mem_unit.id[8:6];
+    regfile.rb = instr_mem_unit.id[5:3];
+    regfile.rc = instr_mem_unit.id[11:9];
+    regfile.write_data = wdsel_mux.out;
+    
+    // Assign data memory signals
+    data_memory.write_en = ctl.wr;
+    data_memory.waddr = alu.out[5:0];
+    data_memory.write_data = regfile.rd2;
+    data_memory.raddr = alu.out[5:0];
+    data_memory.input0_write_en = 1b0; // Disabled
+    data_memory.input0_write_data = 16b0;
+    data_memory.input1_write_en = 1b0;
+    data_memory.input1_write_data = 16b0;
+
+    // Assign ALU signals
+    alu.a = regfile.rd1;
+    alu.b = bsel_mux.out;
+    alu.alufn = ctl.alufn;
+    
+    // Assign bsel_mux signals
+    bsel_mux.s0 = 16x{ctl.bsel};
+    bsel_mux.inp0 = regfile.rd2;
+    bsel_mux.inp1[15:6] = 10x{instr_mem_unit.id[5]};
+    bsel_mux.inp1[5:0] = instr_mem_unit.id[5:0];
+    
+    // Assign wdsel_mux signals
+    wdsel_mux.s0 = 16x{ctl.wdsel};
+    wdsel_mux.inp0 = alu.out;
+    wdsel_mux.inp1 = data_memory.read_data;
+    
+    out = pc.ia;
+  }
+}

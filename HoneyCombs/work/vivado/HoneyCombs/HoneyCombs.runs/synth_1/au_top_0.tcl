@@ -28,8 +28,14 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/data_memory_1.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/adder16_3.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/alu_1.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/and16_5.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/full_adder_7.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/mux2_8.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/mux4_6.v
   C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/reset_conditioner_2.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/shifter16_4.v
   C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/au_top_0.v
 }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -43,8 +49,8 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/constraint/custom.xdc
 set_property used_in_implementation false [get_files C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/constraint/custom.xdc]
 
-read_xdc {{C:/Program Files/Alchitry/Alchitry Labs/library/components/au.xdc}}
-set_property used_in_implementation false [get_files {{C:/Program Files/Alchitry/Alchitry Labs/library/components/au.xdc}}]
+read_xdc C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/constraint/custom.xdc
+set_property used_in_implementation false [get_files C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/constraint/custom.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
