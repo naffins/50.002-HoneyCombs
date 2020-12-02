@@ -11,13 +11,16 @@ module input_conditioner #(
   ) (
     input clk,  // clock
     input in[WIDTH], // signal input
-    output out[WIDTH] // signal output
+    output out[WIDTH], // signal output
+    output debug1[WIDTH],
+    output debug2[WIDTH],
+    output debug3[WIDTH]
   ) {
   
   input_pipeline pipeline[WIDTH](#DELAY_CYCLE_COUNT(PIPELINE_CYCLE_COUNT),.clk(clk)); // Pipeline to avoid metastability
   dff counter[$clog2(DEBOUNCING_CYCLE_COUNT+1)](.clk(clk)); // Counter for tracking number of cycles
   dff input_tracker[WIDTH](.clk(clk));
-  mux2 counter_select[$clog2(DEBOUNCING_CYCLE_COUNT+1)](.inp1(1b0)); // Mux to select between case in which there is the same input (s0),
+  mux2 counter_select[$clog2(DEBOUNCING_CYCLE_COUNT+1)](.inp1(0)); // Mux to select between case in which there is the same input (s0),
                                                                                    // and there isn't the same input or there is 0 (s1)
                                                                                    // in which case counter resets to 0
   half_adder counter_incrementer[$clog2(DEBOUNCING_CYCLE_COUNT+1)]; // Half-adder to add counter
@@ -32,8 +35,8 @@ module input_conditioner #(
     // Assign current counter value to incrementer input
     counter_incrementer.a = counter.q; 
     
-    // Add 1 to counter
-    counter_incrementer.b[0] = 1b1;
+    // Add 1 to counter only if counter is non-max
+    counter_incrementer.b[0] = |(counter.q^(DEBOUNCING_CYCLE_COUNT));
     for (i=1;i<$clog2(DEBOUNCING_CYCLE_COUNT+1);i++){
       counter_incrementer.b[i] = counter_incrementer.cout[i-1];
     }
@@ -58,5 +61,8 @@ module input_conditioner #(
     out_select.inp0 = WIDTHx{1b0};
     out_select.inp1 = input_tracker.q;
     out = out_select.out;
+    debug1 = pipeline.out;
+    debug2 = in;
+    debug3 = $clog2(DEBOUNCING_CYCLE_COUNT+1)x{~(|(counter.q ^ DEBOUNCING_CYCLE_COUNT))};
   }
 }

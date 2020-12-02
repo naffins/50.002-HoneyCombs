@@ -28,14 +28,37 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/adder16_3.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/alu_1.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/and16_5.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/full_adder_7.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/mux2_8.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/mux4_6.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/reset_conditioner_2.v
-  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/shifter16_4.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/adder16_15.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/alu_9.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/and16_18.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/buffer_23.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/button_regulator_11.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/control_unit_5.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/counter_24.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/counter_25.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/data_memory_8.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/full_adder_27.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/grid_selector_26.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/half_adder_29.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/input_conditioner_28.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/input_conditioner_30.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/input_pipeline_31.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/input_printer_12.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/input_regulator_20.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/input_regulator_22.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/instruction_memory_unit_6.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/joystick_mapper_21.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/joystick_regulator_10.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/mux2_13.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/mux4_19.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/pc_4.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/pc_incrementer_16_14.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/prealpha_1.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/regfile_7.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/regfile_base_16.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/reset_conditioner_3.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/shifter16_17.v
+  C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/uart_tx_2.v
   C:/Users/USER/Documents/GitHub/naffins/50.002-HoneyCombs/HoneyCombs/work/vivado/HoneyCombs/HoneyCombs.srcs/sources_1/imports/verilog/au_top_0.v
 }
 # Mark all dcp files as not used in implementation to prevent them from being

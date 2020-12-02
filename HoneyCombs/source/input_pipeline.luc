@@ -18,7 +18,7 @@ module input_pipeline #(
     pipe.d[0] = in;
     
     // For most dffs, output of one dff becomes input of the next
-    for (i=1;i<DELAY_CYCLE_COUNT-1;i++){
+    for (i=1;i<DELAY_CYCLE_COUNT;i++){
       pipe.d[i] = pipe.q[i-1];
     }
     

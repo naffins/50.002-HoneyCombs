@@ -6,8 +6,8 @@ module input_regulator #(
     INPUT_WIDTH = 1 : INPUT_WIDTH > 0,
     DATA_WIDTH = 16 : DATA_WIDTH > 0,
     PIPELINE_CYCLE_COUNT = 5 : PIPELINE_CYCLE_COUNT > 0, // Number of cycles to delay input signal for non-metastability
-    CONDITIONING_CYCLE_COUNT = 100 : CONDITIONING_CYCLE_COUNT > PIPELINE_CYCLE_COUNT,
-    INPUT_REFRESH_CYCLE_COUNT = 50000000 : INPUT_REFRESH_CYCLE_COUNT > 0,
+    CONDITIONING_CYCLE_COUNT = 100 : CONDITIONING_CYCLE_COUNT > PIPELINE_CYCLE_COUNT, // Number of cycles for overall conditioning
+    INPUT_REFRESH_CYCLE_COUNT = 50000000 : INPUT_REFRESH_CYCLE_COUNT > 0, // Number of cycles for refresh
     INPUT_REFRESH_CYCLE_COUNT_OFFSET = INPUT_REFRESH_CYCLE_COUNT-1
     
   ) (
@@ -81,9 +81,9 @@ module input_regulator #(
     | (~|(counter.q^INPUT_REFRESH_CYCLE_COUNT_OFFSET));
     
     // input_write_data is:
-    // map_out if counter is maxed, and not (map_out is non-constant)
-    // 0 if map_out is 0 or non-constant
-    input_write_data_select.s0 = DATA_WIDTHx{(~|(counter.q^INPUT_REFRESH_CYCLE_COUNT_OFFSET)) & (~|(map_out^input_tracker.q))};
+    // map_out if counter is maxed and not (map_out is non-constant), or map_out is non-constant
+    // 0 if map_out is 0
+    input_write_data_select.s0 = DATA_WIDTHx{(~|(counter.q^INPUT_REFRESH_CYCLE_COUNT_OFFSET)) | (|(map_out^input_tracker.q))};
     input_write_data_select.inp0 = DATA_WIDTHx{0};
     input_write_data_select.inp1 = map_out;
     input_write_data = input_write_data_select.out;

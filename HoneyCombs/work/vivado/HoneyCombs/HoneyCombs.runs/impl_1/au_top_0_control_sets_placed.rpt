@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-| Date         : Sun Nov 22 19:10:22 2020
+| Date         : Wed Dec  2 19:31:34 2020
 | Host         : DESKTOP-QSFIJ7U running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file au_top_0_control_sets_placed.rpt
 | Design       : au_top_0
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |     0 |
-|    Minimum number of control sets                        |     0 |
+| Total control sets                                       |    74 |
+|    Minimum number of control sets                        |    74 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |     0 |
+| Unused register locations in slices containing registers |    42 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |     0 |
+| Total control sets |    74 |
 | >= 0 to < 4        |     0 |
-| >= 4 to < 6        |     0 |
+| >= 4 to < 6        |     6 |
 | >= 6 to < 8        |     0 |
-| >= 8 to < 10       |     0 |
+| >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     0 |
-| >= 14 to < 16      |     0 |
-| >= 16              |     0 |
+| >= 14 to < 16      |     1 |
+| >= 16              |    66 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,10 +58,10 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |               0 |            0 |
+| No           | No                    | No                     |              99 |           34 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |               0 |            0 |
+| No           | Yes                   | No                     |              46 |           20 |
+| Yes          | No                    | No                     |            1029 |          294 |
 | Yes          | No                    | Yes                    |               0 |            0 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
@@ -70,8 +70,83 @@ Table of Contents
 4. Detailed Control Set Information
 -----------------------------------
 
-+--------------+---------------+------------------+------------------+----------------+
-| Clock Signal | Enable Signal | Set/Reset Signal | Slice Load Count | Bel Load Count |
-+--------------+---------------+------------------+------------------+----------------+
++-----------------------------------------------------+------------------------------------------------------+------------------------------------------------------------------------------------------------+------------------+----------------+
+|                     Clock Signal                    |                     Enable Signal                    |                                        Set/Reset Signal                                        | Slice Load Count | Bel Load Count |
++-----------------------------------------------------+------------------------------------------------------+------------------------------------------------------------------------------------------------+------------------+----------------+
+|  prealpha/input_printer/slowclock/M_slowclock_value |                                                      | prealpha/input_printer/M_row_iterator_q[3]_i_1_n_0                                             |                2 |              4 |
+|  clk_IBUF_BUFG                                      | tx/M_savedData_d                                     |                                                                                                |                1 |              4 |
+|  clk_IBUF_BUFG                                      |                                                      | reset_cond/M_reset_cond_in                                                                     |                2 |              4 |
+|  clk_IBUF_BUFG                                      |                                                      | tx/M_ctr_q[6]_i_1_n_0                                                                          |                1 |              4 |
+|  clk_IBUF_BUFG                                      |                                                      | prealpha/joystick_regulator/regulator/conditioner/pipeline_gen_0[3].pipeline/M_pipe_q_reg[4]_1 |                3 |              5 |
+|  clk_IBUF_BUFG                                      |                                                      | prealpha/button_regulator/regulator/conditioner/pipeline_gen_0[0].pipeline/M_pipe_q_reg[4]_1   |                2 |              5 |
+|  clk_IBUF_BUFG                                      |                                                      | prealpha/button_regulator/regulator/conditioner/M_input_tracker_q_reg[0]_0                     |                4 |              9 |
+|  clk_IBUF_BUFG                                      |                                                      | prealpha/joystick_regulator/regulator/conditioner/M_input_tracker_q_reg[3]_1                   |                6 |             15 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_58[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_21[0]                   |                                                                                                |                2 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_input_tracker_q_reg[2][0]              |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_49[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_55[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_35[0]                   |                                                                                                |               11 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_28[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_27[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_12[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_19[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/button_regulator/regulator/conditioner/E[0] |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_25[0]                   |                                                                                                |                2 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_32[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_33[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_36[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_4[0]                    |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_41[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_51[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3][0]                      |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_30[0]                   |                                                                                                |                2 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_43[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_48[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_13[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_26[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_31[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_40[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_17[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_22[0]                   |                                                                                                |                2 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_47[0]                   |                                                                                                |                7 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_24[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_3[0]                    |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_11[0]                   |                                                                                                |                7 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_38[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_14[0]                   |                                                                                                |                7 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_39[0]                   |                                                                                                |                2 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_42[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_5[0]                    |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_0[0]                    |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_1[0]                    |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_2[0]                    |                                                                                                |                7 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_20[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_44[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_52[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_53[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_18[0]                   |                                                                                                |                7 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_37[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_15[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_34[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_29[0]                   |                                                                                                |                8 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_46[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_10[0]                   |                                                                                                |                7 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_54[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_56[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_16[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_23[0]                   |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_50[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_57[0]                   |                                                                                                |                5 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_9[0]                    |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_8[0]                    |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_6[0]                    |                                                                                                |                6 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_7[0]                    |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_62[0]                   |                                                                                                |                4 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_61[0]                   |                                                                                                |                3 |             16 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_stage_q_reg[3]_59[0]                   |                                                                                                |                4 |             17 |
+|  clk_IBUF_BUFG                                      | prealpha/pc/M_ctl_werf                               |                                                                                                |                6 |             48 |
+|  clk_IBUF_BUFG                                      |                                                      |                                                                                                |               34 |            104 |
++-----------------------------------------------------+------------------------------------------------------+------------------------------------------------------------------------------------------------+------------------+----------------+
 
 

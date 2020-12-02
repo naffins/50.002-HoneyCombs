@@ -7,40 +7,55 @@
 module au_top_0 (
     input clk,
     input rst_n,
-    output reg [7:0] led,
     input usb_rx,
     output reg usb_tx,
-    output reg [23:0] io_led,
-    input [23:0] io_dip,
-    input [5:0] write_addr,
-    input [15:0] write_data,
-    input werf
+    input [3:0] joystick,
+    input button,
+    output reg [8:0] row,
+    output reg [17:0] column,
+    output reg [1:0] turn,
+    output reg [7:0] io_led
   );
   
   
   
   reg rst;
   
-  wire [16-1:0] M_alu_mod_out;
-  wire [1-1:0] M_alu_mod_z;
-  wire [1-1:0] M_alu_mod_v;
-  wire [1-1:0] M_alu_mod_n;
-  reg [6-1:0] M_alu_mod_alufn;
-  reg [16-1:0] M_alu_mod_a;
-  reg [16-1:0] M_alu_mod_b;
-  alu_1 alu_mod (
-    .alufn(M_alu_mod_alufn),
-    .a(M_alu_mod_a),
-    .b(M_alu_mod_b),
-    .out(M_alu_mod_out),
-    .z(M_alu_mod_z),
-    .v(M_alu_mod_v),
-    .n(M_alu_mod_n)
+  wire [9-1:0] M_prealpha_rows;
+  wire [9-1:0] M_prealpha_player0;
+  wire [9-1:0] M_prealpha_player1;
+  wire [2-1:0] M_prealpha_turn;
+  reg [4-1:0] M_prealpha_joystick;
+  reg [1-1:0] M_prealpha_button;
+  prealpha_1 prealpha (
+    .clk(clk),
+    .rst(rst),
+    .joystick(M_prealpha_joystick),
+    .button(M_prealpha_button),
+    .rows(M_prealpha_rows),
+    .player0(M_prealpha_player0),
+    .player1(M_prealpha_player1),
+    .turn(M_prealpha_turn)
+  );
+  
+  wire [1-1:0] M_tx_tx;
+  wire [1-1:0] M_tx_busy;
+  reg [1-1:0] M_tx_block;
+  reg [8-1:0] M_tx_data;
+  reg [1-1:0] M_tx_new_data;
+  uart_tx_2 tx (
+    .rst(rst),
+    .clk(clk),
+    .block(M_tx_block),
+    .data(M_tx_data),
+    .new_data(M_tx_new_data),
+    .tx(M_tx_tx),
+    .busy(M_tx_busy)
   );
   
   wire [1-1:0] M_reset_cond_out;
   reg [1-1:0] M_reset_cond_in;
-  reset_conditioner_2 reset_cond (
+  reset_conditioner_3 reset_cond (
     .clk(clk),
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
@@ -49,17 +64,16 @@ module au_top_0 (
   always @* begin
     M_reset_cond_in = ~rst_n;
     rst = M_reset_cond_out;
-    usb_tx = usb_rx;
-    led = 8'h00;
-    M_alu_mod_alufn = write_addr;
-    M_alu_mod_a = write_data;
-    M_alu_mod_b[8+7-:8] = io_dip[16+7-:8];
-    M_alu_mod_b[0+7-:8] = io_dip[8+7-:8];
-    io_led[16+7-:8] = M_alu_mod_out[8+7-:8];
-    io_led[8+7-:8] = M_alu_mod_out[0+7-:8];
-    io_led[0+7+0-:1] = M_alu_mod_z;
-    io_led[0+6+0-:1] = M_alu_mod_v;
-    io_led[0+5+0-:1] = M_alu_mod_n;
-    io_led[0+0+4-:5] = 5'h00;
+    M_tx_new_data = 1'h1;
+    M_tx_data = joystick;
+    M_tx_block = 1'h0;
+    usb_tx = M_tx_tx;
+    io_led[0+7-:8] = M_prealpha_rows;
+    M_prealpha_joystick = joystick;
+    M_prealpha_button = button;
+    row = M_prealpha_rows;
+    column[0+8-:9] = M_prealpha_player0;
+    column[9+8-:9] = M_prealpha_player1;
+    turn = M_prealpha_turn;
   end
 endmodule

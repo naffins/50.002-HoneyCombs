@@ -13,7 +13,7 @@ module alu (
   ) {
   
   adder16 adder16_mod; // Adder module (ALUFN: 000000 for ADD (addition))
-  shifter16 shifter16_mod; // Shifter module (ALUFN: 000001 for SHL (logical shift left/right))
+  shifter16 shifter16_mod; // Shifter module (ALUFN: 000001 for SHL (logical shift left), 100001 for SHR (logical shift right))
   and16 and16_mod; // Bitwise AND module (ALUFN: 000010 for AND (bitwise AND))
   // Additionally, ALUFN: 000011 represents NOOP (ALU just doesn't do anything)
   
@@ -31,7 +31,8 @@ module alu (
     v = adder16_mod.v;
     n = adder16_mod.n;
     
-    // Assign a and b to shifter module
+    // Assign a and b and alufn to shifter module
+    shifter16_mod.alufn = alufn;
     shifter16_mod.a = a;
     shifter16_mod.b = b;
     

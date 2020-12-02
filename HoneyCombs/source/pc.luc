@@ -10,7 +10,7 @@ module pc (
   mux2 reset_mux[16](.s0(rst)); // mux to allow reset (esp at the start)
   mux2 pc_select[16](.s0(pcsel)); // mux to select based on pcsel
   dff pc_reg[16](.clk(clk)); // dff to store pc value
-  plus_four_incrementer_16 pc_plus_four; // half-adder to add 4 to pc
+  pc_incrementer_16 pc_plus; // half-adder to add 4 to pc
   adder16 pc_plus_c; // full adder to add 4*c to pc
   
   sig pc[16]; // pc==ia
@@ -22,16 +22,15 @@ module pc (
     ia = pc[15:0];
     
     // add 4 to pc
-    pc_plus_four.in = pc[15:0];
+    pc_plus.in = pc[15:0];
     
-    // add c to pc
-    pc_plus_c.a = pc[15:0];
-    pc_plus_c.b[15:11] = 5x{c[8]};
-    pc_plus_c.b[10:2] = c;
-    pc_plus_c.b[1:0] = 2b00;
+    // add c to pc+1
+    pc_plus_c.a = pc_plus.out;
+    pc_plus_c.b[15:9] = 7x{c[8]};
+    pc_plus_c.b[8:0] = c;
     
-    // feed PC+4 and PC+4+4*SEXT(C) to pcsel mux
-    pc_select.inp0 = pc_plus_four.out;
+    // feed PC+1 and PC+1+SEXT(C) to pcsel mux
+    pc_select.inp0 = pc_plus.out;
     pc_select.inp1 = pc_plus_c.s;
     
     // feed pcsel mux output and 16b0 to reset mux
