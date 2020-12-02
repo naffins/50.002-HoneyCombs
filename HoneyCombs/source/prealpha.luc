@@ -10,7 +10,9 @@ module prealpha (
     output rows[9], // y axis: MSB for highest
     output player0[9], // player 1 grid: x axis: MSB for highest
     output player1[9], // player 2 grid: x axis: MSB for highest
-    output turn[2] // turn LED
+    output turn[2], // turn LED
+    output debug_read[8]
+    //output pc_read[16]
   ) {
   
   // Main components
@@ -59,6 +61,8 @@ module prealpha (
     data_memory.input0_write_data = joystick_regulator.out;
     data_memory.input1_write_en = button_regulator.write_en;
     data_memory.input1_write_data = button_regulator.out;
+    //data_memory.debug_addr = debug_addr;
+    //debug_read = data_memory.debug_read;
 
     // Assign ALU signals
     alu.a = regfile.rd1;
@@ -97,5 +101,10 @@ module prealpha (
     player1 = input_printer.column1;
     turn[1] = ~data_memory.turn_read;
     turn[0] = data_memory.turn_read;
+    //pc_read = pc.ia;
+    //debug_read[15:8] = 0;
+    debug_read[7:4] = regfile.debug_r0;
+    debug_read[3:0] = regfile.debug_r1;
+    
   }
 }

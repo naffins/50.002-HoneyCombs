@@ -4,7 +4,7 @@ module input_conditioner #(
     // It does the same thing, except that if input changes abruptly conditioner discards the input too
     
     PIPELINE_CYCLE_COUNT = 5 : PIPELINE_CYCLE_COUNT > 0, // Number of cycles to delay input signal for non-metastability
-    CONDITIONING_CYCLE_COUNT = 100 : CONDITIONING_CYCLE_COUNT > PIPELINE_CYCLE_COUNT, // Number of cycles to delay input for both debouncing and stability
+    CONDITIONING_CYCLE_COUNT = 10000000 : CONDITIONING_CYCLE_COUNT > PIPELINE_CYCLE_COUNT, // Number of cycles to delay input for both debouncing and stability
     DEBOUNCING_CYCLE_COUNT = CONDITIONING_CYCLE_COUNT - PIPELINE_CYCLE_COUNT, // Number of cycles for strictly debouncing
     WIDTH = 1 : WIDTH > 0
     

@@ -8,8 +8,8 @@ module data_memory #(
     parameter JOYSTICK_ADDR = 0,        // Joystick input address
     parameter BUTTON_ADDR = 29,          // Button read address
     parameter PLAYER0_START = 1,        // Player 1 lowest read address
-    parameter PLAYER1_START = 19,        // Player 2 lowest read address
-    parameter SELECTED_START = 10,      // Selected lowest read address
+    parameter PLAYER1_START = 10,        // Player 2 lowest read address
+    parameter SELECTED_START = 19,      // Selected lowest read address
     parameter TURN_ADDR = 28            // Turn read address
   )(
     input clk,                        // clock
@@ -46,6 +46,13 @@ module data_memory #(
     
     // turn read interface
     output [0:0] turn_read
+    
+    // debug read interface
+    //output [SIZE-1:0] debug_read0,
+    //output [SIZE-1:0] debug_read1,
+    //output [SIZE-1:0] debug_read2,
+    //output [SIZE-1:0] debug_read3
+    
   );
   
   reg [SIZE-1:0] mem [DEPTH-1:0];      // memory array to store values
@@ -78,5 +85,10 @@ module data_memory #(
   assign selection_read[(9*SIZE)-1:0] = {mem[SELECTED_START+8],mem[SELECTED_START+7],mem[SELECTED_START+6],mem[SELECTED_START+5],mem[SELECTED_START+4],
                                         mem[SELECTED_START+3],mem[SELECTED_START+2],mem[SELECTED_START+1],mem[SELECTED_START]}; // Assign selected grid
   assign turn_read = mem[TURN_ADDR][0]; // Assign turn read
+  //assign debug_read0 = mem[22];
+  //assign debug_read1 = mem[23];
+  //assign debug_read2 = mem[24];
+  //assign debug_read3 = mem[25];
+  
   
 endmodule

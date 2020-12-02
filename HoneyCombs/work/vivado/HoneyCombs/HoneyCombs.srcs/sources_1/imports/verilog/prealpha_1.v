@@ -12,7 +12,8 @@ module prealpha_1 (
     output reg [8:0] rows,
     output reg [8:0] player0,
     output reg [8:0] player1,
-    output reg [1:0] turn
+    output reg [1:0] turn,
+    output reg [7:0] debug_read
   );
   
   
@@ -20,7 +21,7 @@ module prealpha_1 (
   wire [16-1:0] M_pc_ia;
   reg [1-1:0] M_pc_pcsel;
   reg [9-1:0] M_pc_c;
-  pc_4 pc (
+  pc_3 pc (
     .clk(clk),
     .rst(rst),
     .pcsel(M_pc_pcsel),
@@ -37,7 +38,7 @@ module prealpha_1 (
   wire [1-1:0] M_ctl_werf;
   reg [1-1:0] M_ctl_z;
   reg [4-1:0] M_ctl_opcode;
-  control_unit_5 ctl (
+  control_unit_4 ctl (
     .rst(rst),
     .z(M_ctl_z),
     .opcode(M_ctl_opcode),
@@ -52,7 +53,7 @@ module prealpha_1 (
   
   wire [16-1:0] M_instr_mem_unit_id;
   reg [9-1:0] M_instr_mem_unit_ia;
-  instruction_memory_unit_6 instr_mem_unit (
+  instruction_memory_unit_5 instr_mem_unit (
     .ia(M_instr_mem_unit_ia),
     .id(M_instr_mem_unit_id)
   );
@@ -60,13 +61,15 @@ module prealpha_1 (
   wire [16-1:0] M_regfile_rd1;
   wire [16-1:0] M_regfile_rd2;
   wire [1-1:0] M_regfile_z;
+  wire [4-1:0] M_regfile_debug_r0;
+  wire [4-1:0] M_regfile_debug_r1;
   reg [1-1:0] M_regfile_werf;
   reg [1-1:0] M_regfile_ra2sel;
   reg [16-1:0] M_regfile_write_data;
   reg [3-1:0] M_regfile_ra;
   reg [3-1:0] M_regfile_rb;
   reg [3-1:0] M_regfile_rc;
-  regfile_7 regfile (
+  regfile_6 regfile (
     .clk(clk),
     .werf(M_regfile_werf),
     .ra2sel(M_regfile_ra2sel),
@@ -76,7 +79,9 @@ module prealpha_1 (
     .rc(M_regfile_rc),
     .rd1(M_regfile_rd1),
     .rd2(M_regfile_rd2),
-    .z(M_regfile_z)
+    .z(M_regfile_z),
+    .debug_r0(M_regfile_debug_r0),
+    .debug_r1(M_regfile_debug_r1)
   );
   
   wire [16-1:0] M_data_memory_read_data;
@@ -94,7 +99,7 @@ module prealpha_1 (
   reg [1-1:0] M_data_memory_input0_write_en;
   reg [16-1:0] M_data_memory_input1_write_data;
   reg [1-1:0] M_data_memory_input1_write_en;
-  data_memory_8 data_memory (
+  data_memory_7 data_memory (
     .clk(clk),
     .waddr(M_data_memory_waddr),
     .write_data(M_data_memory_write_data),
@@ -120,7 +125,7 @@ module prealpha_1 (
   reg [6-1:0] M_alu_alufn;
   reg [16-1:0] M_alu_a;
   reg [16-1:0] M_alu_b;
-  alu_9 alu (
+  alu_8 alu (
     .alufn(M_alu_alufn),
     .a(M_alu_a),
     .b(M_alu_b),
@@ -134,7 +139,7 @@ module prealpha_1 (
   wire [16-1:0] M_joystick_regulator_out;
   reg [4-1:0] M_joystick_regulator_in;
   reg [16-1:0] M_joystick_regulator_input_read;
-  joystick_regulator_10 joystick_regulator (
+  joystick_regulator_9 joystick_regulator (
     .clk(clk),
     .in(M_joystick_regulator_in),
     .input_read(M_joystick_regulator_input_read),
@@ -146,7 +151,7 @@ module prealpha_1 (
   wire [16-1:0] M_button_regulator_out;
   reg [1-1:0] M_button_regulator_in;
   reg [16-1:0] M_button_regulator_input_read;
-  button_regulator_11 button_regulator (
+  button_regulator_10 button_regulator (
     .clk(clk),
     .in(M_button_regulator_in),
     .input_read(M_button_regulator_input_read),
@@ -160,7 +165,7 @@ module prealpha_1 (
   reg [144-1:0] M_input_printer_player0_occupancy;
   reg [144-1:0] M_input_printer_player1_occupancy;
   reg [144-1:0] M_input_printer_selection_occupancy;
-  input_printer_12 input_printer (
+  input_printer_11 input_printer (
     .clk(clk),
     .player0_occupancy(M_input_printer_player0_occupancy),
     .player1_occupancy(M_input_printer_player1_occupancy),
@@ -178,7 +183,7 @@ module prealpha_1 (
   genvar GEN_bsel_mux0;
   generate
   for (GEN_bsel_mux0=0;GEN_bsel_mux0<5'h10;GEN_bsel_mux0=GEN_bsel_mux0+1) begin: bsel_mux_gen_0
-    mux2_13 bsel_mux (
+    mux2_12 bsel_mux (
       .inp0(M_bsel_mux_inp0[GEN_bsel_mux0*(1)+(1)-1-:(1)]),
       .inp1(M_bsel_mux_inp1[GEN_bsel_mux0*(1)+(1)-1-:(1)]),
       .s0(M_bsel_mux_s0[GEN_bsel_mux0*(1)+(1)-1-:(1)]),
@@ -195,7 +200,7 @@ module prealpha_1 (
   genvar GEN_wdsel_mux0;
   generate
   for (GEN_wdsel_mux0=0;GEN_wdsel_mux0<5'h10;GEN_wdsel_mux0=GEN_wdsel_mux0+1) begin: wdsel_mux_gen_0
-    mux2_13 wdsel_mux (
+    mux2_12 wdsel_mux (
       .inp0(M_wdsel_mux_inp0[GEN_wdsel_mux0*(1)+(1)-1-:(1)]),
       .inp1(M_wdsel_mux_inp1[GEN_wdsel_mux0*(1)+(1)-1-:(1)]),
       .s0(M_wdsel_mux_s0[GEN_wdsel_mux0*(1)+(1)-1-:(1)]),
@@ -246,5 +251,7 @@ module prealpha_1 (
     player1 = M_input_printer_column1;
     turn[1+0-:1] = ~M_data_memory_turn_read;
     turn[0+0-:1] = M_data_memory_turn_read;
+    debug_read[4+3-:4] = M_regfile_debug_r0;
+    debug_read[0+3-:4] = M_regfile_debug_r1;
   end
 endmodule

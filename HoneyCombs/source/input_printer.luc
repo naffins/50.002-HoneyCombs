@@ -1,7 +1,7 @@
 module input_printer #(
     
     GRID_SIZE = 9 : GRID_SIZE > 1,
-    SPEED = 5 : SPEED > 0,
+    SPEED = 10 : SPEED > 0,
     BLINK_SPEED = 27 : BLINK_SPEED > 0
     
   ) (
@@ -33,8 +33,10 @@ module input_printer #(
     row = ~(1 << row_iterator.q);
     
     // Output columns
-    column0 = player0_occupancy_select.out | (selection_occupancy_select.out & (GRID_SIZEx{blink_slowclock.value}));
-    column1 = player1_occupancy_select.out | (selection_occupancy_select.out & (GRID_SIZEx{blink_slowclock.value}));
+    //player0_occupancy_select.out | (
+    //& (GRID_SIZEx{blink_slowclock.value}))
+    column0 = player0_occupancy_select.out[8:0] | (selection_occupancy_select.out[8:0] & (GRID_SIZEx{blink_slowclock.value}));
+    column1 = player1_occupancy_select.out[8:0] | (selection_occupancy_select.out[8:0] & (GRID_SIZEx{blink_slowclock.value}));
     
   }
 }

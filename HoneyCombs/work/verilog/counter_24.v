@@ -7,7 +7,7 @@
 /*
    Parameters:
      SIZE = 1
-     DIV = SPEED
+     DIV = BLINK_SPEED
      TOP = 0
      UP = 1
 */
@@ -18,28 +18,28 @@ module counter_24 (
   );
   
   localparam SIZE = 1'h1;
-  localparam DIV = 3'h5;
+  localparam DIV = 5'h1b;
   localparam TOP = 1'h0;
   localparam UP = 1'h1;
   
   
-  reg [5:0] M_ctr_d, M_ctr_q = 1'h0;
+  reg [27:0] M_ctr_d, M_ctr_q = 1'h0;
   
-  localparam MAX_VALUE = 6'h1f;
+  localparam MAX_VALUE = 28'h7ffffff;
   
   always @* begin
     M_ctr_d = M_ctr_q;
     
-    value = M_ctr_q[5+0-:1];
+    value = M_ctr_q[27+0-:1];
     if (1'h1) begin
       M_ctr_d = M_ctr_q + 1'h1;
-      if (1'h0 && M_ctr_q == 6'h1f) begin
+      if (1'h0 && M_ctr_q == 28'h7ffffff) begin
         M_ctr_d = 1'h0;
       end
     end else begin
       M_ctr_d = M_ctr_q - 1'h1;
       if (1'h0 && M_ctr_q == 1'h0) begin
-        M_ctr_d = 6'h1f;
+        M_ctr_d = 28'h7ffffff;
       end
     end
   end

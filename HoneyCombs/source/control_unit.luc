@@ -7,7 +7,7 @@ module control_unit #(
     ALUFN_AND = 6b000010,
     ALUFN_SHL = 6b000001,
     ALUFN_ADD = 6b000000,
-    ALUFN_SHRC = 6b100000,
+    ALUFN_SHRC = 6b100001,
     
     // Control signals (from MSB to LSB): pcsel[1], ra2sel[1], bsel[1], wdsel[1], alufn[6], wr[1], werf[1] (total 12 bits)
     CONTROL_SIG = {c{1b0,1b0,1b0,1b0,ALUFN_NOOP,1b0,1b0}, // 1111: NOOP

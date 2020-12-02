@@ -9,6 +9,7 @@
     <src>control_unit.luc</src>
     <src>adder16.luc</src>
     <src>joystick_mapper.luc</src>
+    <src>input_printer_grid_picker.luc</src>
     <src>shifter16.luc</src>
     <src>prealpha.luc</src>
     <component>reset_conditioner.luc</component>

@@ -25,6 +25,7 @@ module au_top_0 (
   wire [9-1:0] M_prealpha_player0;
   wire [9-1:0] M_prealpha_player1;
   wire [2-1:0] M_prealpha_turn;
+  wire [8-1:0] M_prealpha_debug_read;
   reg [4-1:0] M_prealpha_joystick;
   reg [1-1:0] M_prealpha_button;
   prealpha_1 prealpha (
@@ -35,45 +36,28 @@ module au_top_0 (
     .rows(M_prealpha_rows),
     .player0(M_prealpha_player0),
     .player1(M_prealpha_player1),
-    .turn(M_prealpha_turn)
-  );
-  
-  wire [1-1:0] M_tx_tx;
-  wire [1-1:0] M_tx_busy;
-  reg [1-1:0] M_tx_block;
-  reg [8-1:0] M_tx_data;
-  reg [1-1:0] M_tx_new_data;
-  uart_tx_2 tx (
-    .rst(rst),
-    .clk(clk),
-    .block(M_tx_block),
-    .data(M_tx_data),
-    .new_data(M_tx_new_data),
-    .tx(M_tx_tx),
-    .busy(M_tx_busy)
+    .turn(M_prealpha_turn),
+    .debug_read(M_prealpha_debug_read)
   );
   
   wire [1-1:0] M_reset_cond_out;
   reg [1-1:0] M_reset_cond_in;
-  reset_conditioner_3 reset_cond (
+  reset_conditioner_2 reset_cond (
     .clk(clk),
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
   );
   
   always @* begin
-    M_reset_cond_in = ~rst_n;
+    M_reset_cond_in = 1'h0;
     rst = M_reset_cond_out;
-    M_tx_new_data = 1'h1;
-    M_tx_data = joystick;
-    M_tx_block = 1'h0;
-    usb_tx = M_tx_tx;
-    io_led[0+7-:8] = M_prealpha_rows;
+    usb_tx = usb_rx;
     M_prealpha_joystick = joystick;
-    M_prealpha_button = button;
+    M_prealpha_button = ~button;
     row = M_prealpha_rows;
     column[0+8-:9] = M_prealpha_player0;
     column[9+8-:9] = M_prealpha_player1;
     turn = M_prealpha_turn;
+    io_led[0+7-:8] = M_prealpha_debug_read;
   end
 endmodule
